@@ -9,17 +9,21 @@ export default function AddVinyl() {
   const [year, setYear] = useState('');
 
   const handleSave = async () => {
-      if (!title.trim() || !artist.trim() || !year.trim()) {
-        Alert.alert("Erro", "Por favor, preencha todos os campos.");
+      if (!title.trim() || !artist.trim()) {
+        Alert.alert("Erro", "Por favor, preencha os campos álbum e artista.");
         return;
       }
 
-      const yearNum = parseInt(year);
-      const currentYear = new Date().getFullYear();
+      let yearNum: number | null = null;
 
-      if (isNaN(yearNum) || yearNum < 1800 || yearNum > currentYear) {
-        Alert.alert("Erro", "Insira um ano válido.");
-        return;
+      if (year.trim()) {
+        yearNum = parseInt(year);
+        const currentYear = new Date().getFullYear();
+
+        if (isNaN(yearNum) || yearNum < 1800 || yearNum > currentYear) {
+          Alert.alert("Erro", "Insira um ano válido ou deixe em branco.");
+          return;
+        }
       }
 
       try {
@@ -42,20 +46,23 @@ export default function AddVinyl() {
   return (
     <View className="flex-1 p-6 bg-white">
       <TextInput
-        className="p-4 m-2 border border-gray-200 rounded-xl text-lg bg-gray-50"
+        className="p-4 m-2 border border-gray-200 rounded-xl text-lg bg-gray-50 text-gray-950"
         placeholder="Título do Álbum"
+        placeholderTextColor="#9ca3af"
         value={title}
         onChangeText={setTitle}
       />
       <TextInput
-        className="p-4 m-2 border border-gray-200 rounded-xl text-lg bg-gray-50"
+        className="p-4 m-2 border border-gray-200 rounded-xl text-lg bg-gray-50 text-gray-950"
         placeholder="Artista / Banda"
+        placeholderTextColor="#9ca3af"
         value={artist}
         onChangeText={setArtist}
       />
       <TextInput
-        className="p-4 m-2 border border-gray-200 rounded-xl text-lg bg-gray-50"
+        className="p-4 m-2 border border-gray-200 rounded-xl text-lg bg-gray-50 text-gray-950"
         placeholder="Ano de Lançamento"
+        placeholderTextColor="#9ca3af"
         value={year}
         onChangeText={setYear}
         keyboardType="numeric"
