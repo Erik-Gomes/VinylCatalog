@@ -24,6 +24,9 @@ export default function AddVinyl() {
           Alert.alert("Erro", "Insira um ano válido ou deixe em branco.");
           return;
         }
+      } else {
+        const foundYear = await VinylService.fetchYear(title, artist);
+        yearNum = foundYear || null; 
       }
 
       try {
@@ -35,7 +38,9 @@ export default function AddVinyl() {
           isFavorite: false
         });
 
-        Alert.alert("Sucesso", "Disco adicionado à coleção!");
+      const msg = yearNum ? `Disco adicionado! (Ano ${yearNum} encontrado via API)` : "Disco adicionado à coleção!";
+
+        Alert.alert("Sucesso", msg);
         Keyboard.dismiss();
         router.back();
       } catch (error) {

@@ -24,7 +24,7 @@ export default function EditVinyl() {
   }, [id]);
 
   const handleUpdate = async () => {
-    if (!title || !artist || !year) return;
+    if (!title || !artist) return;
 
     await updateVinyl(Number(id), {
       title,
